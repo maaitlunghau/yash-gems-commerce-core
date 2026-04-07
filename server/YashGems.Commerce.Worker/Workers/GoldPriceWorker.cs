@@ -7,7 +7,7 @@ using YashGems.Commerce.Application.Interfaces;
 using YashGems.Commerce.Infrastructure.Settings;
 using YashGems.Commerce.Application.Contracts;
 
-namespace YashGems.Commerce.Infrastructure.Workers
+namespace YashGems.Commerce.Worker.Workers
 {
     public class GoldPriceWorker : BackgroundService
     {

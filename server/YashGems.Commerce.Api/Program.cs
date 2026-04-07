@@ -54,18 +54,6 @@ builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.Configure<GoldPriceSettings>(builder.Configuration.GetSection("GoldPrice"));
 builder.Services.AddHttpClient<IGoldPriceService, GoldPriceService>();
 
-// Configure MassTransit with RabbitMQ
-builder.Services.AddMassTransit(x =>
-{
-    x.UsingRabbitMq((context, cfg) =>
-    {
-        cfg.Host("localhost", "/"); // Mặc định local, sau này đổi qua config
-    });
-});
-
-// Chạy Bot ngầm
-builder.Services.AddHostedService<GoldPriceWorker>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
