@@ -1,24 +1,70 @@
+using AutoMapper;
 using YashGems.Commerce.Application.DTOs;
 using YashGems.Commerce.Domain.Entities;
 
-namespace YashGems.Commerce.Application.Mappings;
-
-public class MappingProfile : AutoMapper.Profile
+namespace YashGems.Commerce.Application.Mappings
 {
-    public MappingProfile()
+    public class MappingProfile : Profile
     {
-        // entity -> dto
-        CreateMap<Category, CategoryDto>();
-        CreateMap<JewelType, JewelTypeDto>();
-        CreateMap<Brand, BrandDto>();
-        CreateMap<GoldKarat, GoldKaratDto>();
-        CreateMap<Certification, CertificationDto>();
+        public MappingProfile()
+        {
+            // Entity -> DTO
+            CreateMap<Category, CategoryDto>();
+            CreateMap<JewelType, JewelTypeDto>();
+            CreateMap<Brand, BrandDto>();
+            CreateMap<GoldKarat, GoldKaratDto>();
+            CreateMap<Certification, CertificationDto>();
 
-        // dto -> entity
-        CreateMap<CategoryDto, Category>();
-        CreateMap<JewelTypeDto, JewelType>();
-        CreateMap<BrandDto, Brand>();
-        CreateMap<GoldKaratDto, GoldKarat>();
-        CreateMap<CertificationDto, Certification>();
+            // DTO -> Entity
+            CreateMap<CategoryDto, Category>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) =>
+                {
+                    if (srcMember == null) return false;
+                    if (srcMember is string str && string.IsNullOrWhiteSpace(str)) return false;
+
+                    return true;
+                }));
+
+            CreateMap<JewelTypeDto, JewelType>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) =>
+                {
+                    if (srcMember == null) return false;
+                    if (srcMember is string str && string.IsNullOrWhiteSpace(str)) return false;
+
+                    return true;
+                }));
+
+            CreateMap<BrandDto, Brand>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) =>
+                {
+                    if (srcMember == null) return false;
+                    if (srcMember is string str && string.IsNullOrWhiteSpace(str)) return false;
+
+                    return true;
+                }));
+
+            CreateMap<GoldKaratDto, GoldKarat>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) =>
+                {
+                    if (srcMember == null) return false;
+                    if (srcMember is string str && string.IsNullOrWhiteSpace(str)) return false;
+
+                    return true;
+                }));
+
+            CreateMap<CertificationDto, Certification>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) =>
+                {
+                    if (srcMember == null) return false;
+                    if (srcMember is string str && string.IsNullOrWhiteSpace(str)) return false;
+
+                    return true;
+                }));
+        }
     }
 }
