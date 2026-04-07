@@ -58,6 +58,9 @@ namespace YashGems.Commerce.Domain.Entities
         public decimal OtherMakingCharge { get; set; }
         public decimal Wastage { get; set; } // tỉ lệ hao hụt (%)
         public decimal Tax { get; set; }
-        public decimal MRP { get; set; } // tính toán tự động
+        public decimal MRP { get; set; }
+
+        // Images Navigation Property
+        public ICollection<ProductImage>? Images { get; set; }
     }
 }
