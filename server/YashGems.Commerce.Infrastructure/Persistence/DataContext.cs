@@ -17,4 +17,14 @@ public class DataContext : DbContext
     public DbSet<DiamondCut> DiamondCuts { get; set; } = null!;
     public DbSet<GemstoneType> GemstoneTypes { get; set; } = null!;
     public DbSet<StoneQuality> StoneQualities { get; set; } = null!;
+    public DbSet<Product> Products { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Product>()
+            .Property(p => p.Status)
+            .HasConversion<string>();
+    }
 }
