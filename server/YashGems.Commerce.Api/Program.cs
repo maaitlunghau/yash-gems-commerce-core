@@ -50,6 +50,10 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 
+// Inject Gold Price Service
+builder.Services.Configure<GoldPriceSettings>(builder.Configuration.GetSection("GoldPrice"));
+builder.Services.AddHttpClient<IGoldPriceService, GoldPriceService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
