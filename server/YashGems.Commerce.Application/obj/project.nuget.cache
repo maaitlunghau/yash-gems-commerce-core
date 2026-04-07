@@ -1,11 +1,29 @@
 {
   "version": 2,
-  "dgSpecHash": "pPafuZeOvAQ=",
+  "dgSpecHash": "iaQBmmCOea0=",
   "success": true,
   "projectFilePath": "/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/YashGems.Commerce.Application.csproj",
   "expectedPackageFiles": [
-    "/Users/maaitlunghau/.nuget/packages/microsoft.netcore.app.ref/8.0.22/microsoft.netcore.app.ref.8.0.22.nupkg.sha512",
-    "/Users/maaitlunghau/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.22/microsoft.aspnetcore.app.ref.8.0.22.nupkg.sha512"
+    "/Users/maaitlunghau/.nuget/packages/automapper/13.0.1/automapper.13.0.1.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/6.0.0/microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/microsoft.extensions.options/6.0.0/microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/microsoft.extensions.primitives/6.0.0/microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.22/microsoft.aspnetcore.app.ref.8.0.22.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/microsoft.netcore.app.ref/8.0.22/microsoft.netcore.app.ref.8.0.22.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'AutoMapper' 13.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x",
+      "projectPath": "/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/YashGems.Commerce.Application.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/YashGems.Commerce.Application.csproj",
+      "libraryId": "AutoMapper",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

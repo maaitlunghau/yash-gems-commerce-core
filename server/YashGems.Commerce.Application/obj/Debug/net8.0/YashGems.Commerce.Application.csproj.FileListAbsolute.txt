@@ -10,3 +10,7 @@
 /Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/obj/Debug/net8.0/refint/YashGems.Commerce.Application.dll
 /Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/obj/Debug/net8.0/YashGems.Commerce.Application.pdb
 /Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/obj/Debug/net8.0/ref/YashGems.Commerce.Application.dll
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/bin/Debug/net8.0/YashGems.Commerce.Domain.dll
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/bin/Debug/net8.0/YashGems.Commerce.Domain.pdb
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/obj/Debug/net8.0/YashGems.Commerce.Application.csproj.AssemblyReference.cache
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/obj/Debug/net8.0/YashGems.F19CA66A.Up2Date
