@@ -1,11 +1,10 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MassTransit;
 using YashGems.Commerce.Application.Interfaces;
 using YashGems.Commerce.Infrastructure.Settings;
 using YashGems.Commerce.Application.Contracts;
+using YashGems.Commerce.Infrastructure.Persistence;
+using YashGems.Commerce.Domain.Entities;
 
 namespace YashGems.Commerce.Worker.Workers
 {
@@ -46,6 +45,14 @@ namespace YashGems.Commerce.Worker.Workers
 
                         _logger.LogInformation("Successfully fetched gold rate: {rate} VND/gram", currentRate);
 
+                        var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+                        dbContext.GoldPriceHistories.Add(new GoldPriceHistory
+                        {
+                            PricePerGram = currentRate,
+                            Source = "GoldAPI.io"
+                        });
+                        await dbContext.SaveChangesAsync(stoppingToken);
+
                         await _publishEndpoint.Publish<IGoldPriceUpdatedEvent>(new
                         {
                             NewGoldRate = currentRate,
@@ -60,7 +67,6 @@ namespace YashGems.Commerce.Worker.Workers
                     }
                 }
 
-                // 3. Nghỉ ngơi theo cấu hình (ví dụ 15 phút)
                 await Task.Delay(TimeSpan.FromMinutes(_settings.UpdateIntervalMinutes), stoppingToken);
             }
 

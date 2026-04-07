@@ -19,6 +19,7 @@ public class DataContext : DbContext
     public DbSet<StoneQuality> StoneQualities { get; set; } = null!;
     public DbSet<Product> Products { get; set; } = null!;
     public DbSet<ProductImage> ProductImages { get; set; } = null!;
+    public DbSet<GoldPriceHistory> GoldPriceHistories { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
