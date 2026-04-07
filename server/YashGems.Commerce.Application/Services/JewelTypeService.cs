@@ -1,10 +1,12 @@
 using AutoMapper;
+using YashGems.Commerce.Application.DTOs;
+using YashGems.Commerce.Application.Interfaces;
 using YashGems.Commerce.Domain.Entities;
 using YashGems.Commerce.Domain.Repositories;
 
 namespace YashGems.Commerce.Application.Services;
 
-public class JewelTypeService : IJewelTypeRepository
+public class JewelTypeService : IJewelTypeService
 {
     private readonly IJewelTypeRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
@@ -21,41 +23,41 @@ public class JewelTypeService : IJewelTypeRepository
         _mapper = mapper;
     }
 
-    public Task<IEnumerable<JewelType>> GetAllAsync()
+    async Task<IEnumerable<JewelTypeDto>> IJewelTypeService.GetAllAsync()
     {
-        var data = _repository.GetAllAsync();
-        return _mapper.Map<Task<IEnumerable<JewelType>>>(data);
+        var data = await _repository.GetAllAsync();
+        return _mapper.Map<IEnumerable<JewelTypeDto>>(data);
     }
 
-    public Task<JewelType?> GetByIdAsync(int id)
+    Task<JewelTypeDto?> IJewelTypeService.GetByIdAsync(int id)
     {
         var data = _repository.GetByIdAsync(id);
-        return _mapper.Map<Task<JewelType?>>(data);
+        return _mapper.Map<Task<JewelTypeDto?>>(data);
     }
 
-    public async Task AddAsync(JewelType type)
+    public async Task CreateAsync(JewelTypeDto dto)
     {
-        var entity = _mapper.Map<JewelType>(type);
+        var entity = _mapper.Map<JewelType>(dto);
 
         await _repository.AddAsync(entity);
         await _unitOfWork.CompleteAsync();
     }
 
-    public async Task Update(JewelType type)
+    public async Task UpdateAsync(int id, JewelTypeDto dto)
     {
-        var entity = await _repository.GetByIdAsync(type.Id);
+        var entity = await _repository.GetByIdAsync(id);
         if (entity != null)
         {
-            _mapper.Map(type, entity);
+            _mapper.Map(dto, entity);
 
             await _repository.Update(entity);
             await _unitOfWork.CompleteAsync();
         }
     }
 
-    public async Task Delete(JewelType type)
+    public async Task DeleteAsync(int id)
     {
-        var entity = _mapper.Map<JewelType>(type);
+        var entity = await _repository.GetByIdAsync(id);
         if (entity != null)
         {
             await _repository.Delete(entity);
