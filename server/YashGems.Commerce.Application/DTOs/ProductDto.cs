@@ -38,5 +38,7 @@ namespace YashGems.Commerce.Application.DTOs
         public decimal Wastage { get; set; }
         public decimal Tax { get; set; }
         public decimal MRP { get; set; }
+
+        public ICollection<ProductImageDto>? Images { get; set; }
     }
 }

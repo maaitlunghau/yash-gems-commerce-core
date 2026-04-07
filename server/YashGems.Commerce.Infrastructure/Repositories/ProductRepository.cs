@@ -27,6 +27,7 @@ namespace YashGems.Commerce.Infrastructure.Repositories
                 .Include(p => p.DiamondCut)
                 .Include(p => p.GemstoneType)
                 .Include(p => p.StoneQuality)
+                .Include(p => p.Images)
                 .ToListAsync();
         }
 
@@ -43,6 +44,7 @@ namespace YashGems.Commerce.Infrastructure.Repositories
                 .Include(p => p.DiamondCut)
                 .Include(p => p.GemstoneType)
                 .Include(p => p.StoneQuality)
+                .Include(p => p.Images)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
@@ -59,6 +61,7 @@ namespace YashGems.Commerce.Infrastructure.Repositories
                 .Include(p => p.DiamondCut)
                 .Include(p => p.GemstoneType)
                 .Include(p => p.StoneQuality)
+                .Include(p => p.Images)
                 .FirstOrDefaultAsync(p => p.StyleCode == styleCode);
         }
 

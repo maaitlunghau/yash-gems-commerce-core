@@ -10,5 +10,6 @@ namespace YashGems.Commerce.Application.Interfaces
         Task<ProductDto> CreateProductAsync(CreateProductDto productDto);
         Task UpdateProductAsync(int id, UpdateProductDto productDto);
         Task DeleteProductAsync(int id);
+        Task<ProductImageDto> AddProductImageAsync(int productId, Stream stream, string fileName);
     }
 }

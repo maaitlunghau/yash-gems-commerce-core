@@ -139,6 +139,8 @@ namespace YashGems.Commerce.Application.Mappings
                     if (srcMember is string str && string.IsNullOrWhiteSpace(str)) return false;
                     return true;
                 }));
+
+            CreateMap<ProductImage, ProductImageDto>();
         }
     }
 }

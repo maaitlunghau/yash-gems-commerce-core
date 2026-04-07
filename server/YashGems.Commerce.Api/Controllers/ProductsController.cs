@@ -70,5 +70,16 @@ namespace YashGems.Commerce.Api.Controllers
                 return NotFound(new { message = ex.Message });
             }
         }
+
+        [HttpPost("{id}/images")]
+        public async Task<ActionResult<ProductImageDto>> UploadProductImage(int id, IFormFile file)
+        {
+            if (file == null || file.Length == 0) return BadRequest("File is empty.");
+
+            using var stream = file.OpenReadStream();
+            var imageDto = await _productService.AddProductImageAsync(id, stream, file.FileName);
+
+            return Ok(imageDto);
+        }
     }
 }

@@ -11,16 +11,22 @@ namespace YashGems.Commerce.Application.Services
         private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IPhotoService _photoService;
 
         // Giả sử giá vàng hiện tại là 70$ / gram 
         // Sau này có thể query từ bảng cấu hình cài đặt SystemSettings
         private const decimal CURRENT_GOLD_RATE_PER_GRAM = 70m;
 
-        public ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public ProductService(
+            IProductRepository productRepository, 
+            IUnitOfWork unitOfWork, 
+            IMapper mapper,
+            IPhotoService photoService)
         {
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _photoService = photoService;
         }
 
         public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
@@ -79,6 +85,30 @@ namespace YashGems.Commerce.Application.Services
 
             await _productRepository.Delete(product);
             await _unitOfWork.CompleteAsync();
+        }
+
+        public async Task<ProductImageDto> AddProductImageAsync(int productId, Stream stream, string fileName)
+        {
+            var product = await _productRepository.GetByIdAsync(productId);
+            if (product == null) throw new KeyNotFoundException($"Product with ID {productId} not found.");
+
+            var (url, publicId) = await _photoService.AddPhotoAsync(stream, fileName);
+
+            var productImage = new ProductImage
+            {
+                Url = url,
+                PublicId = publicId,
+                IsMain = product.Images == null || !product.Images.Any(),
+                ProductId = productId
+            };
+
+            product.Images ??= new List<ProductImage>();
+            product.Images.Add(productImage);
+
+            await _productRepository.Update(product);
+            await _unitOfWork.CompleteAsync();
+
+            return _mapper.Map<ProductImageDto>(productImage);
         }
 
         /* 
