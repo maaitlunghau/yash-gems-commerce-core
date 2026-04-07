@@ -63,7 +63,7 @@ namespace YashGems.Commerce.Infrastructure.Services
             }
         }
 
-        private async Task<decimal> GetLiveExchangeRateAsync()
+        public async Task<decimal> GetLatestExchangeRateAsync()
         {
             try
             {
@@ -73,21 +73,27 @@ namespace YashGems.Commerce.Infrastructure.Services
                 var content = await response.Content.ReadAsStringAsync();
                 using var doc = JsonDocument.Parse(content);
 
-                if (doc.RootElement.TryGetProperty("rates", out var ratesElement) &&
+                // Cấu hình ExchangeRate-API trả về obj rates: { "VND": 25450 }
+                if (doc.RootElement.TryGetProperty("rates", out var ratesElement) && 
                     ratesElement.TryGetProperty("VND", out var vndRateElement))
                 {
                     decimal rate = vndRateElement.GetDecimal();
                     return rate;
                 }
 
-                _logger.LogWarning("ExchangeRate-API response error. Using fallback rate: {rate}", _settings.UsdToVndRate);
+                _logger.LogWarning("ExchangeRate-API response missing VND rate. Using fallback: {rate}", _settings.UsdToVndRate);
                 return _settings.UsdToVndRate;
             }
             catch (Exception ex)
             {
-                _logger.LogWarning("ExchangeRate-API failed: {msg}. Using fallback rate: {rate}", ex.Message, _settings.UsdToVndRate);
+                _logger.LogWarning("ExchangeRate-API call failed: {msg}. Using fallback: {rate}", ex.Message, _settings.UsdToVndRate);
                 return _settings.UsdToVndRate;
             }
+        }
+
+        private async Task<decimal> GetLiveExchangeRateAsync()
+        {
+            return await GetLatestExchangeRateAsync();
         }
     }
 }
