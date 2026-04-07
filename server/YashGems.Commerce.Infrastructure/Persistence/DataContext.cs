@@ -27,5 +27,8 @@ public class DataContext : DbContext
         modelBuilder.Entity<Product>()
             .Property(p => p.Status)
             .HasConversion<string>();
+
+        // Gọi tự động chèn Data Mẫu để Test API
+        modelBuilder.Seed();
     }
 }
