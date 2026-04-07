@@ -1,8 +1,13 @@
 using YashGems.Commerce.Worker.Consumers;
 using YashGems.Commerce.Infrastructure.Persistence;
 using YashGems.Commerce.Infrastructure.Repositories;
+using YashGems.Commerce.Infrastructure.Services;
+using YashGems.Commerce.Infrastructure.Settings;
+using YashGems.Commerce.Worker.Workers;
 using YashGems.Commerce.Domain.Repositories;
+using YashGems.Commerce.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using MassTransit;
 
 var builder = Host.CreateApplicationBuilder(args);
 
