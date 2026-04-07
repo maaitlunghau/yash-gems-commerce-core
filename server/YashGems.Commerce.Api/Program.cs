@@ -24,7 +24,6 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IJewelTypeRepository, JewelTypeRepository>();
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<IGoldKaratRepository, GoldKaratRepository>();
-builder.Services.AddScoped<IGoldKaratRepository, GoldKaratRepository>();
 builder.Services.AddScoped<ICertificationRepository, CertificationRepository>();
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -40,6 +39,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<DataContext>();
+
+        await db.Database.EnsureDeletedAsync();
+        await db.Database.EnsureCreatedAsync();
+    }
 }
 
 app.UseHttpsRedirection();
