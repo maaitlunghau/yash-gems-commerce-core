@@ -112,3 +112,4 @@
 /Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Api/obj/Debug/net8.0/YashGems.Commerce.Api.pdb
 /Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Api/obj/Debug/net8.0/YashGems.Commerce.Api.genruntimeconfig.cache
 /Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Api/obj/Debug/net8.0/ref/YashGems.Commerce.Api.dll
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Api/bin/Debug/net8.0/AutoMapper.dll
