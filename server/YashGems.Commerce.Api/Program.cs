@@ -4,6 +4,8 @@ using YashGems.Commerce.Application.Services;
 using YashGems.Commerce.Domain.Repositories;
 using YashGems.Commerce.Infrastructure.Persistence;
 using YashGems.Commerce.Infrastructure.Repositories;
+using YashGems.Commerce.Infrastructure.Services;
+using YashGems.Commerce.Infrastructure.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +45,10 @@ builder.Services.AddScoped<IDiamondCutService, DiamondCutService>();
 builder.Services.AddScoped<IGemstoneTypeService, GemstoneTypeService>();
 builder.Services.AddScoped<IStoneQualityService, StoneQualityService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+
+// Inject Cloudinary Upload Service
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.AddScoped<IPhotoService, PhotoService>();
 
 var app = builder.Build();
 
