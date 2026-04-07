@@ -1,0 +1,6 @@
+@YashGems.Commerce.Api_HostAddress = http://localhost:5250
+
+GET {{YashGems.Commerce.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
