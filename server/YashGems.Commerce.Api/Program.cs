@@ -46,6 +46,8 @@ if (app.Environment.IsDevelopment())
 
         await db.Database.EnsureDeletedAsync();
         await db.Database.EnsureCreatedAsync();
+
+        await DbInitializer.SeedAsync(db);
     }
 }
 
