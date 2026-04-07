@@ -33,18 +33,27 @@ namespace YashGems.Commerce.Infrastructure.Services
                 using var doc = JsonDocument.Parse(content);
                 var root = doc.RootElement;
 
+                decimal usdPricePerGram = 0;
+                const decimal usdToVndRate = 25450m; // Tỉ giá USD/VND hiện tại (có thể cấu hình sau)
+
+                // 1. Thử lấy giá gram 24k trực tiếp (USD)
                 if (root.TryGetProperty("price_gram_24k", out var priceElement))
                 {
-                    return priceElement.GetDecimal();
+                    usdPricePerGram = priceElement.GetDecimal();
                 }
-
-                if (root.TryGetProperty("price", out var ouncePriceElement))
+                // 2. Nếu không có, lấy giá Ounce (price) rồi chia cho 31.1035
+                else if (root.TryGetProperty("price", out var ouncePriceElement))
                 {
                     decimal ouncePrice = ouncePriceElement.GetDecimal();
-                    return Math.Round(ouncePrice / 31.1034768m, 2);
+                    usdPricePerGram = ouncePrice / 31.1034768m;
+                }
+                else
+                {
+                    throw new Exception($"Price keys not found. JSON Response: {content}");
                 }
 
-                throw new Exception("Could not find gold price in API response.");
+                // Chuyển đổi sang VND
+                return Math.Round(usdPricePerGram * usdToVndRate, 2);
             }
             catch (Exception ex)
             {
