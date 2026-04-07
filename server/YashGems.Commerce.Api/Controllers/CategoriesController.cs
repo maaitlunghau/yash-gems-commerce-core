@@ -30,6 +30,13 @@ namespace YashGems.Commerce.Api.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> Create(CategoryDto dto)
+        {
+            await _service.CreateAsync(dto);
+            return Ok(new { message = "Category created successfully" });
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, CategoryDto dto)
         {
@@ -40,7 +47,9 @@ namespace YashGems.Commerce.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            await _service.DeleteAsync(id);
+            var deleted = await _service.DeleteAsync(id);
+            if (!deleted) return NotFound(new { message = $"Category with ID {id} not found" });
+
             return Ok(new { message = "Category deleted successfully" });
         }
     }

@@ -46,7 +46,9 @@ namespace YashGems.Commerce.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            await _service.DeleteAsync(id);
+            var deleted = await _service.DeleteAsync(id);
+            if (!deleted) return NotFound(new { message = $"Certification with ID {id} not found" });
+
             return Ok(new { message = "Certification deleted successfully" });
         }
     }
