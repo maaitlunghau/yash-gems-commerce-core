@@ -72,14 +72,33 @@ namespace YashGems.Commerce.Api.Controllers
         }
 
         [HttpPost("{id}/images")]
-        public async Task<ActionResult<ProductImageDto>> UploadProductImage(int id, IFormFile file)
+        public async Task<ActionResult<IEnumerable<ProductImageDto>>> UploadProductImages(int id, List<IFormFile> files)
         {
-            if (file == null || file.Length == 0) return BadRequest("File is empty.");
+            if (files == null || !files.Any()) return BadRequest("No files uploaded.");
 
-            using var stream = file.OpenReadStream();
-            var imageDto = await _productService.AddProductImageAsync(id, stream, file.FileName);
+            var fileStreams = files.Select(f => (f.OpenReadStream(), f.FileName)).ToList();
+            
+            var imagesDto = await _productService.AddProductImagesAsync(id, fileStreams);
 
-            return Ok(imageDto);
+            // Đóng stream sau khi sử dụng (Nghiệp vụ kỹ lưỡng)
+            foreach (var stream in fileStreams)
+            {
+                stream.Item1.Dispose();
+            }
+
+            return Ok(imagesDto);
+        }
+
+        [HttpDelete("{id}/images")]
+        public async Task<IActionResult> DeleteProductImages(int id, [FromBody] List<int> imageIds)
+        {
+            if (imageIds == null || !imageIds.Any()) return BadRequest("No image IDs provided.");
+
+            var result = await _productService.DeleteProductImagesAsync(id, imageIds);
+            
+            if (!result) return BadRequest("Could not delete images or images not found.");
+
+            return NoContent();
         }
     }
 }

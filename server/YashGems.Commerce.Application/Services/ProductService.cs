@@ -111,9 +111,70 @@ namespace YashGems.Commerce.Application.Services
             return _mapper.Map<ProductImageDto>(productImage);
         }
 
+        public async Task<IEnumerable<ProductImageDto>> AddProductImagesAsync(int productId, List<(Stream stream, string fileName)> files)
+        {
+            var product = await _productRepository.GetByIdAsync(productId);
+            if (product == null) throw new KeyNotFoundException($"Product with ID {productId} not found.");
+
+            var uploadedImages = new List<ProductImage>();
+
+            foreach (var (stream, fileName) in files)
+            {
+                var (url, publicId) = await _photoService.AddPhotoAsync(stream, fileName);
+
+                var productImage = new ProductImage
+                {
+                    Url = url,
+                    PublicId = publicId,
+                    IsMain = (product.Images == null || !product.Images.Any()) && uploadedImages.Count == 0,
+                    ProductId = productId
+                };
+
+                uploadedImages.Add(productImage);
+            }
+
+            product.Images ??= new List<ProductImage>();
+            foreach (var img in uploadedImages)
+            {
+                product.Images.Add(img);
+            }
+
+            await _productRepository.Update(product);
+            await _unitOfWork.CompleteAsync();
+
+            return _mapper.Map<IEnumerable<ProductImageDto>>(uploadedImages);
+        }
+
+        public async Task<bool> DeleteProductImagesAsync(int productId, List<int> imageIds)
+        {
+            var product = await _productRepository.GetByIdAsync(productId);
+            if (product == null) throw new KeyNotFoundException($"Product with ID {productId} not found.");
+
+            var imagesToDelete = product.Images?
+                .Where(img => imageIds.Contains(img.Id))
+                .ToList();
+
+            if (imagesToDelete == null || !imagesToDelete.Any()) return false;
+
+            // 1. Xóa trên Cloudinary hàng loạt
+            var publicIds = imagesToDelete.Select(x => x.PublicId).ToList();
+            await _photoService.DeletePhotosAsync(publicIds);
+
+            // 2. Xóa trong Database (EF Core sẽ tự động dọn bản ghi nếu là cascade hoặc ta remove khỏi collection)
+            foreach (var img in imagesToDelete)
+            {
+                product.Images!.Remove(img);
+            }
+
+            await _productRepository.Update(product);
+            await _unitOfWork.CompleteAsync();
+
+            return true;
+        }
+
         /* 
          * Công thức: 
-         * MRP = (Net_Gold * Gold_Rate) + Gold_Making + Stone_Making + Other_Making + * (Wastage * Gold_Rate) + Tax
+         * MRP = (Net_Gold * Gold_Rate) + Gold_Making + Stone_Making + Other_Making + (Wastage * Gold_Rate) + Tax
          */
         private decimal CalculateMRP(Product product)
         {
