@@ -48,9 +48,7 @@ namespace YashGems.Commerce.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error fetching gold price: {ex.Message}");
-                // Fallback: Nếu API lỗi, tạm thời trả về giá mặc định 70$ quy đổi hoặc 1tr8/gram (tầm 70$)
-                return 1800000m;
+                throw new Exception($"Fetching gold price failed: {ex.Message}");
             }
         }
     }
