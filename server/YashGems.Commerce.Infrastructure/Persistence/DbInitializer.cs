@@ -84,5 +84,58 @@ public class DbInitializer
                 }
             };
         await context.Certifications.AddRangeAsync(certifications);
+
+        var diamondColors = new List<DiamondColor>
+        {
+            new DiamondColor { Name = "D", Description = "Colorless" },
+            new DiamondColor { Name = "E", Description = "Colorless" },
+            new DiamondColor { Name = "F", Description = "Colorless" },
+            new DiamondColor { Name = "G", Description = "Near Colorless" }
+        };
+        await context.DiamondColors.AddRangeAsync(diamondColors);
+
+        var diamondClarities = new List<DiamondClarity>
+        {
+            new DiamondClarity { Name = "FL", Description = "Flawless" },
+            new DiamondClarity { Name = "IF", Description = "Internally Flawless" },
+            new DiamondClarity { Name = "VVS1", Description = "Very Very Slightly Included 1" },
+            new DiamondClarity { Name = "VVS2", Description = "Very Very Slightly Included 2" }
+        };
+        await context.DiamondClarities.AddRangeAsync(diamondClarities);
+
+        var diamondCuts = new List<DiamondCut>
+        {
+            new DiamondCut { Name = "Ideal" },
+            new DiamondCut { Name = "Excellent" },
+            new DiamondCut { Name = "Very Good" },
+            new DiamondCut { Name = "Good" }
+        };
+        await context.DiamondCuts.AddRangeAsync(diamondCuts);
+
+        if (!context.GemstoneTypes.Any())
+        {
+            var gemstoneTypes = new List<GemstoneType>
+            {
+                new GemstoneType { Name = "Ruby", Description = "Hồng ngọc" },
+                new GemstoneType { Name = "Sapphire", Description = "Lam ngọc" },
+                new GemstoneType { Name = "Emerald", Description = "Ngọc lục bảo" },
+                new GemstoneType { Name = "Aquamarine" },
+                new GemstoneType { Name = "Amethyst" }
+            };
+            await context.GemstoneTypes.AddRangeAsync(gemstoneTypes);
+        }
+
+        if (!context.StoneQualities.Any())
+        {
+            var stoneQualities = new List<StoneQuality>
+            {
+                new StoneQuality { Name = "AAA", Description = "Cao cấp nhất, màu sắc rực rỡ, độ trong tuyệt đối" },
+                new StoneQuality { Name = "AA", Description = "Chất lượng cao, rất ít tạp chất" },
+                new StoneQuality { Name = "A", Description = "Chất lượng tốt, màu sắc tự nhiên" }
+            };
+            await context.StoneQualities.AddRangeAsync(stoneQualities);
+        }
+
+        await context.SaveChangesAsync();
     }
 }
