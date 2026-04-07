@@ -115,6 +115,30 @@ namespace YashGems.Commerce.Application.Mappings
                     if (srcMember is string str && string.IsNullOrWhiteSpace(str)) return false;
                     return true;
                 }));
+
+            CreateMap<Product, ProductDto>()
+                .ForMember(d => d.Status, opt => opt.MapFrom(s => s.Status.ToString()))
+                .ForMember(d => d.CategoryName, opt => opt.MapFrom(s => s.Category != null ? s.Category.Name : null))
+                .ForMember(d => d.BrandName, opt => opt.MapFrom(s => s.Brand != null ? s.Brand.Name : null))
+                .ForMember(d => d.JewelTypeName, opt => opt.MapFrom(s => s.JewelType != null ? s.JewelType.Name : null))
+                .ForMember(d => d.CertificationName, opt => opt.MapFrom(s => s.Certification != null ? s.Certification.Name : null))
+                .ForMember(d => d.GoldKaratName, opt => opt.MapFrom(s => s.GoldKarat != null ? s.GoldKarat.Name : null))
+                .ForMember(d => d.DiamondColorName, opt => opt.MapFrom(s => s.DiamondColor != null ? s.DiamondColor.Name : null))
+                .ForMember(d => d.DiamondClarityName, opt => opt.MapFrom(s => s.DiamondClarity != null ? s.DiamondClarity.Name : null))
+                .ForMember(d => d.DiamondCutName, opt => opt.MapFrom(s => s.DiamondCut != null ? s.DiamondCut.Name : null))
+                .ForMember(d => d.GemstoneTypeName, opt => opt.MapFrom(s => s.GemstoneType != null ? s.GemstoneType.Name : null))
+                .ForMember(d => d.StoneQualityName, opt => opt.MapFrom(s => s.StoneQuality != null ? s.StoneQuality.Name : null));
+
+            CreateMap<CreateProductDto, Product>();
+
+            CreateMap<UpdateProductDto, Product>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) =>
+                {
+                    if (srcMember == null) return false;
+                    if (srcMember is string str && string.IsNullOrWhiteSpace(str)) return false;
+                    return true;
+                }));
         }
     }
 }
