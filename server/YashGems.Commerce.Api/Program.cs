@@ -25,12 +25,22 @@ builder.Services.AddScoped<IJewelTypeRepository, JewelTypeRepository>();
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<IGoldKaratRepository, GoldKaratRepository>();
 builder.Services.AddScoped<ICertificationRepository, CertificationRepository>();
+builder.Services.AddScoped<IDiamondColorRepository, DiamondColorRepository>();
+builder.Services.AddScoped<IDiamondClarityRepository, DiamondClarityRepository>();
+builder.Services.AddScoped<IDiamondCutRepository, DiamondCutRepository>();
+builder.Services.AddScoped<IGemstoneTypeRepository, GemstoneTypeRepository>();
+builder.Services.AddScoped<IStoneQualityRepository, StoneQualityRepository>();
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IJewelTypeService, JewelTypeService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IGoldKaratService, GoldKaratService>();
 builder.Services.AddScoped<ICertificationService, CertificationService>();
+builder.Services.AddScoped<IDiamondColorService, DiamondColorService>();
+builder.Services.AddScoped<IDiamondClarityService, DiamondClarityService>();
+builder.Services.AddScoped<IDiamondCutService, DiamondCutService>();
+builder.Services.AddScoped<IGemstoneTypeService, GemstoneTypeService>();
+builder.Services.AddScoped<IStoneQualityService, StoneQualityService>();
 
 var app = builder.Build();
 
