@@ -29,10 +29,10 @@ public class JewelTypeService : IJewelTypeService
         return _mapper.Map<IEnumerable<JewelTypeDto>>(data);
     }
 
-    Task<JewelTypeDto?> IJewelTypeService.GetByIdAsync(int id)
+    async Task<JewelTypeDto?> IJewelTypeService.GetByIdAsync(int id)
     {
-        var data = _repository.GetByIdAsync(id);
-        return _mapper.Map<Task<JewelTypeDto?>>(data);
+        var data = await _repository.GetByIdAsync(id);
+        return _mapper.Map<JewelTypeDto?>(data);
     }
 
     public async Task CreateAsync(JewelTypeDto dto)
@@ -55,13 +55,14 @@ public class JewelTypeService : IJewelTypeService
         }
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
         var entity = await _repository.GetByIdAsync(id);
-        if (entity != null)
-        {
-            await _repository.Delete(entity);
-            await _unitOfWork.CompleteAsync();
-        }
+        if (entity == null) return false;
+
+        await _repository.Delete(entity);
+        await _unitOfWork.CompleteAsync();
+
+        return true;
     }
 }

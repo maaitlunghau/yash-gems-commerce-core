@@ -8,5 +8,5 @@ public interface ICertificationService
     Task<CertificationDto?> GetByIdAsync(int id);
     Task CreateAsync(CertificationDto dto);
     Task UpdateAsync(int id, CertificationDto dto);
-    Task DeleteAsync(int id);
+    Task<bool> DeleteAsync(int id);
 }

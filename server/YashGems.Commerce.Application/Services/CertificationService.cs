@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using AutoMapper;
 using YashGems.Commerce.Application.DTOs;
 using YashGems.Commerce.Application.Interfaces;
@@ -23,13 +24,6 @@ public class CertificationService : ICertificationService
         _mapper = mapper;
     }
 
-    public async Task CreateAsync(CertificationDto dto)
-    {
-        var entity = _mapper.Map<Certification>(dto);
-
-        await _repository.AddAsync(entity);
-        await _unitOfWork.CompleteAsync();
-    }
 
     public Task<IEnumerable<CertificationDto>> GetAllAsync()
     {
@@ -37,10 +31,18 @@ public class CertificationService : ICertificationService
         return _mapper.Map<Task<IEnumerable<CertificationDto>>>(data);
     }
 
-    public Task<CertificationDto?> GetByIdAsync(int id)
+    public async Task<CertificationDto?> GetByIdAsync(int id)
     {
-        var data = _repository.GetByIdAsync(id);
-        return _mapper.Map<Task<CertificationDto?>>(data);
+        var data = await _repository.GetByIdAsync(id);
+        return _mapper.Map<CertificationDto?>(data);
+    }
+
+    public async Task CreateAsync(CertificationDto dto)
+    {
+        var entity = _mapper.Map<Certification>(dto);
+
+        await _repository.AddAsync(entity);
+        await _unitOfWork.CompleteAsync();
     }
 
     public async Task UpdateAsync(int id, CertificationDto dto)
@@ -55,13 +57,14 @@ public class CertificationService : ICertificationService
         }
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
         var entity = await _repository.GetByIdAsync(id);
-        if (entity != null)
-        {
-            await _repository.Delete(entity);
-            await _unitOfWork.CompleteAsync();
-        }
+        if (entity == null) return false;
+
+        await _repository.Delete(entity);
+        await _unitOfWork.CompleteAsync();
+
+        return true;
     }
 }

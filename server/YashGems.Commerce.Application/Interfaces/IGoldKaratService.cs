@@ -8,5 +8,5 @@ public interface IGoldKaratService
     Task<GoldKaratDto?> GetByIdAsync(int id);
     Task CreateAsync(GoldKaratDto dto);
     Task UpdateAsync(int id, GoldKaratDto dto);
-    Task DeleteAsync(int id);
+    Task<bool> DeleteAsync(int id);
 }

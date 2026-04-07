@@ -55,13 +55,14 @@ public class CategoryService : ICategoryService
         }
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
         var entity = await _repository.GetByIdAsync(id);
-        if (entity != null)
-        {
-            await _repository.Delete(entity);
-            await _unitOfWork.CompleteAsync();
-        }
+        if (entity == null) return false;
+
+        await _repository.Delete(entity);
+        await _unitOfWork.CompleteAsync();
+
+        return true;
     }
 }

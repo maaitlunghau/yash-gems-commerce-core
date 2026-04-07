@@ -8,5 +8,5 @@ public interface IJewelTypeService
     Task<JewelTypeDto?> GetByIdAsync(int id);
     Task CreateAsync(JewelTypeDto dto);
     Task UpdateAsync(int id, JewelTypeDto dto);
-    Task DeleteAsync(int id);
+    Task<bool> DeleteAsync(int id);
 }
