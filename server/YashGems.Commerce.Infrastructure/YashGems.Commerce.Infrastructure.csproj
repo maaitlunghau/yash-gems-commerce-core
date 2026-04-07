@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <Folder Include="Persistence/" />
+    <Folder Include="Repositories/" />
   </ItemGroup>
 
   <PropertyGroup>
