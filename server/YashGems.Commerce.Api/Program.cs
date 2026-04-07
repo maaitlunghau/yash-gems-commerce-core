@@ -46,11 +46,9 @@ builder.Services.AddScoped<IGemstoneTypeService, GemstoneTypeService>();
 builder.Services.AddScoped<IStoneQualityService, StoneQualityService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
-// Inject Cloudinary Upload Service
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 
-// Inject Gold Price Service
 builder.Services.Configure<GoldPriceSettings>(builder.Configuration.GetSection("GoldPrice"));
 builder.Services.AddHttpClient<IGoldPriceService, GoldPriceService>();
 
