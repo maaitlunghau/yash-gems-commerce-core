@@ -21,6 +21,8 @@ namespace YashGems.Commerce.Infrastructure.Services
         {
             try
             {
+                decimal liveUsdToVndRate = await GetLiveExchangeRateAsync();
+
                 _httpClient.DefaultRequestHeaders.Clear();
                 _httpClient.DefaultRequestHeaders.Add("x-access-token", _settings.GoldApiKey);
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -34,14 +36,11 @@ namespace YashGems.Commerce.Infrastructure.Services
                 var root = doc.RootElement;
 
                 decimal usdPricePerGram = 0;
-                const decimal usdToVndRate = 25450m; // Tỉ giá USD/VND hiện tại (có thể cấu hình sau)
 
-                // 1. Thử lấy giá gram 24k trực tiếp (USD)
                 if (root.TryGetProperty("price_gram_24k", out var priceElement))
                 {
                     usdPricePerGram = priceElement.GetDecimal();
                 }
-                // 2. Nếu không có, lấy giá Ounce (price) rồi chia cho 31.1035
                 else if (root.TryGetProperty("price", out var ouncePriceElement))
                 {
                     decimal ouncePrice = ouncePriceElement.GetDecimal();
@@ -52,12 +51,36 @@ namespace YashGems.Commerce.Infrastructure.Services
                     throw new Exception($"Price keys not found. JSON Response: {content}");
                 }
 
-                // Chuyển đổi sang VND
-                return Math.Round(usdPricePerGram * usdToVndRate, 2);
+                return Math.Round(usdPricePerGram * liveUsdToVndRate, 2);
             }
             catch (Exception ex)
             {
                 throw new Exception($"Fetching gold price failed: {ex.Message}");
+            }
+        }
+
+        private async Task<decimal> GetLiveExchangeRateAsync()
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync(_settings.ExchangeRateApiUrl);
+                response.EnsureSuccessStatusCode();
+
+                var content = await response.Content.ReadAsStringAsync();
+                using var doc = JsonDocument.Parse(content);
+
+                if (doc.RootElement.TryGetProperty("rates", out var ratesElement) &&
+                    ratesElement.TryGetProperty("VND", out var vndRateElement))
+                {
+                    decimal rate = vndRateElement.GetDecimal();
+                    return rate;
+                }
+
+                return _settings.UsdToVndRate;
+            }
+            catch
+            {
+                return _settings.UsdToVndRate;
             }
         }
     }
