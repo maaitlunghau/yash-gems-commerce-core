@@ -65,6 +65,56 @@ namespace YashGems.Commerce.Application.Mappings
 
                     return true;
                 }));
+
+            CreateMap<DiamondColor, DiamondColorDto>();
+            CreateMap<DiamondColorDto, DiamondColor>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) =>
+                {
+                    if (srcMember == null) return false;
+                    if (srcMember is string str && string.IsNullOrWhiteSpace(str)) return false;
+                    return true;
+                }));
+
+            CreateMap<DiamondClarity, DiamondClarityDto>();
+            CreateMap<DiamondClarityDto, DiamondClarity>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) =>
+                {
+                    if (srcMember == null) return false;
+                    if (srcMember is string str && string.IsNullOrWhiteSpace(str)) return false;
+                    return true;
+                }));
+
+            CreateMap<DiamondCut, DiamondCutDto>();
+            CreateMap<DiamondCutDto, DiamondCut>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) =>
+                {
+                    if (srcMember == null) return false;
+                    if (srcMember is string str && string.IsNullOrWhiteSpace(str)) return false;
+                    return true;
+                }));
+
+            CreateMap<GemstoneType, GemstoneTypeDto>();
+            CreateMap<GemstoneTypeDto, GemstoneType>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) =>
+                {
+                    if (srcMember == null) return false;
+                    if (srcMember is string str && string.IsNullOrWhiteSpace(str)) return false;
+                    return true;
+                }));
+
+            CreateMap<StoneQuality, StoneQualityDto>();
+            CreateMap<StoneQualityDto, StoneQuality>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) =>
+                {
+                    if (srcMember == null) return false;
+                    if (srcMember is string str && string.IsNullOrWhiteSpace(str)) return false;
+                    return true;
+                }));
         }
     }
 }
