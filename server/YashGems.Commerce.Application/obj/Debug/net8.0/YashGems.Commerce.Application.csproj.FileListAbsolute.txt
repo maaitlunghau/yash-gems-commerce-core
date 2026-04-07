@@ -1,0 +1,12 @@
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/bin/Debug/net8.0/YashGems.Commerce.Application.deps.json
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/bin/Debug/net8.0/YashGems.Commerce.Application.dll
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/bin/Debug/net8.0/YashGems.Commerce.Application.pdb
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/obj/Debug/net8.0/YashGems.Commerce.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/obj/Debug/net8.0/YashGems.Commerce.Application.AssemblyInfoInputs.cache
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/obj/Debug/net8.0/YashGems.Commerce.Application.AssemblyInfo.cs
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/obj/Debug/net8.0/YashGems.Commerce.Application.csproj.CoreCompileInputs.cache
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/obj/Debug/net8.0/YashGems.Commerce.Application.sourcelink.json
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/obj/Debug/net8.0/YashGems.Commerce.Application.dll
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/obj/Debug/net8.0/refint/YashGems.Commerce.Application.dll
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/obj/Debug/net8.0/YashGems.Commerce.Application.pdb
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Application/obj/Debug/net8.0/ref/YashGems.Commerce.Application.dll

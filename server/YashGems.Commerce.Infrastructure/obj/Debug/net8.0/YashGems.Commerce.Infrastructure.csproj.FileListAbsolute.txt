@@ -1,0 +1,12 @@
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Infrastructure/bin/Debug/net8.0/YashGems.Commerce.Infrastructure.deps.json
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Infrastructure/bin/Debug/net8.0/YashGems.Commerce.Infrastructure.dll
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Infrastructure/bin/Debug/net8.0/YashGems.Commerce.Infrastructure.pdb
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Infrastructure/obj/Debug/net8.0/YashGems.Commerce.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Infrastructure/obj/Debug/net8.0/YashGems.Commerce.Infrastructure.AssemblyInfoInputs.cache
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Infrastructure/obj/Debug/net8.0/YashGems.Commerce.Infrastructure.AssemblyInfo.cs
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Infrastructure/obj/Debug/net8.0/YashGems.Commerce.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Infrastructure/obj/Debug/net8.0/YashGems.Commerce.Infrastructure.sourcelink.json
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Infrastructure/obj/Debug/net8.0/YashGems.Commerce.Infrastructure.dll
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Infrastructure/obj/Debug/net8.0/refint/YashGems.Commerce.Infrastructure.dll
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Infrastructure/obj/Debug/net8.0/YashGems.Commerce.Infrastructure.pdb
+/Users/maaitlunghau/Documents/SelfStudy/yash-gems-commerce-core/server/YashGems.Commerce.Infrastructure/obj/Debug/net8.0/ref/YashGems.Commerce.Infrastructure.dll
