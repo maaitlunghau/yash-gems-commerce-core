@@ -60,7 +60,6 @@ namespace YashGems.Commerce.Domain.Entities
         public decimal Tax { get; set; }
         public decimal MRP { get; set; }
 
-        // Images Navigation Property
         public ICollection<ProductImage>? Images { get; set; }
     }
 }
