@@ -6,8 +6,6 @@ using YashGems.Commerce.Infrastructure.Persistence;
 using YashGems.Commerce.Infrastructure.Repositories;
 using YashGems.Commerce.Infrastructure.Services;
 using YashGems.Commerce.Infrastructure.Settings;
-using YashGems.Commerce.Infrastructure.Workers;
-using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
