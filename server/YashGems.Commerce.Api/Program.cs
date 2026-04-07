@@ -6,6 +6,8 @@ using YashGems.Commerce.Infrastructure.Persistence;
 using YashGems.Commerce.Infrastructure.Repositories;
 using YashGems.Commerce.Infrastructure.Services;
 using YashGems.Commerce.Infrastructure.Settings;
+using YashGems.Commerce.Infrastructure.Workers;
+using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +53,18 @@ builder.Services.AddScoped<IPhotoService, PhotoService>();
 
 builder.Services.Configure<GoldPriceSettings>(builder.Configuration.GetSection("GoldPrice"));
 builder.Services.AddHttpClient<IGoldPriceService, GoldPriceService>();
+
+// Configure MassTransit with RabbitMQ
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/"); // Mặc định local, sau này đổi qua config
+    });
+});
+
+// Chạy Bot ngầm
+builder.Services.AddHostedService<GoldPriceWorker>();
 
 var app = builder.Build();
 
