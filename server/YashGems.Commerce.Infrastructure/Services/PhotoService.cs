@@ -54,5 +54,18 @@ namespace YashGems.Commerce.Infrastructure.Services
 
             return result.Result == "ok";
         }
+
+        public async Task<bool> DeletePhotosAsync(List<string> publicIds)
+        {
+            var deleteParams = new DelResParams
+            {
+                PublicIds = publicIds,
+                Type = "upload",
+                ResourceType = ResourceType.Image
+            };
+
+            var result = await _cloudinary.DeleteResourcesAsync(deleteParams);
+            return result.Deleted.Count == publicIds.Count;
+        }
     }
 }

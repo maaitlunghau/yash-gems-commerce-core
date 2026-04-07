@@ -4,5 +4,6 @@ namespace YashGems.Commerce.Application.Interfaces
     {
         Task<(string Url, string PublicId)> AddPhotoAsync(Stream stream, string fileName);
         Task<bool> DeletePhotoAsync(string publicId);
+        Task<bool> DeletePhotosAsync(List<string> publicIds);
     }
 }
