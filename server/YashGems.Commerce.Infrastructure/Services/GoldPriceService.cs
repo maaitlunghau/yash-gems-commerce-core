@@ -1,6 +1,7 @@
 using System.Net.Http.Headers;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 using YashGems.Commerce.Application.Interfaces;
 using YashGems.Commerce.Infrastructure.Settings;
 
@@ -10,11 +11,13 @@ namespace YashGems.Commerce.Infrastructure.Services
     {
         private readonly HttpClient _httpClient;
         private readonly GoldPriceSettings _settings;
+        private readonly ILogger<GoldPriceService> _logger;
 
-        public GoldPriceService(HttpClient httpClient, IOptions<GoldPriceSettings> settings)
+        public GoldPriceService(HttpClient httpClient, IOptions<GoldPriceSettings> settings, ILogger<GoldPriceService> logger)
         {
             _httpClient = httpClient;
             _settings = settings.Value;
+            _logger = logger;
         }
 
         public async Task<decimal> GetLatestGoldPriceInVndAsync()
@@ -22,6 +25,7 @@ namespace YashGems.Commerce.Infrastructure.Services
             try
             {
                 decimal liveUsdToVndRate = await GetLiveExchangeRateAsync();
+                _logger.LogInformation("Current Exchange Rate Fetched: 1 USD = {rate} VND", liveUsdToVndRate);
 
                 _httpClient.DefaultRequestHeaders.Clear();
                 _httpClient.DefaultRequestHeaders.Add("x-access-token", _settings.GoldApiKey);
@@ -76,10 +80,12 @@ namespace YashGems.Commerce.Infrastructure.Services
                     return rate;
                 }
 
+                _logger.LogWarning("ExchangeRate-API response error. Using fallback rate: {rate}", _settings.UsdToVndRate);
                 return _settings.UsdToVndRate;
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.LogWarning("ExchangeRate-API failed: {msg}. Using fallback rate: {rate}", ex.Message, _settings.UsdToVndRate);
                 return _settings.UsdToVndRate;
             }
         }
