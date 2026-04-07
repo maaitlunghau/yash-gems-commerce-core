@@ -13,18 +13,18 @@ namespace YashGems.Commerce.Worker.Workers
         private readonly ILogger<GoldPriceWorker> _logger;
         private readonly IServiceProvider _serviceProvider;
         private readonly GoldPriceSettings _settings;
-        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IBus _bus;
 
         public GoldPriceWorker(
             ILogger<GoldPriceWorker> logger,
-            IServiceProvider serviceProvider,
+            IServiceProvider _serviceProvider,
             IOptions<GoldPriceSettings> settings,
-            IPublishEndpoint publishEndpoint)
+            IBus bus)
         {
             _logger = logger;
-            _serviceProvider = serviceProvider;
+            this._serviceProvider = _serviceProvider;
             _settings = settings.Value;
-            _publishEndpoint = publishEndpoint;
+            _bus = bus;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -53,7 +53,7 @@ namespace YashGems.Commerce.Worker.Workers
                         });
                         await dbContext.SaveChangesAsync(stoppingToken);
 
-                        await _publishEndpoint.Publish<IGoldPriceUpdatedEvent>(new
+                        await _bus.Publish<IGoldPriceUpdatedEvent>(new
                         {
                             NewGoldRate = currentRate,
                             UpdatedAt = DateTime.UtcNow
