@@ -11,4 +11,9 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\YashGems.Commerce.Infrastructure\YashGems.Commerce.Infrastructure.csproj" />
+    <ProjectReference Include="..\YashGems.Commerce.Application\YashGems.Commerce.Application.csproj" />
+  </ItemGroup>
+
 </Project>
